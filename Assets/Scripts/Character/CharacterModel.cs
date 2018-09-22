@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CharacterModel : MonoBehaviour
 {
-    public CharacterData characterData;
+    public CharacterInfo CharacterInfo;
 
     void Awake()
     {
@@ -20,9 +20,4 @@ public class CharacterModel : MonoBehaviour
 	void Update () {
 		
 	}
-
-    void AddToArenaCamera()
-    {
-
-    }
 }

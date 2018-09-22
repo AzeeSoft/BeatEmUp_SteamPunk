@@ -11,6 +11,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aa750bc24cb0154da4cf1f2d1323d28, type: 3}
   m_Name: Benjamin
   m_EditorClassIdentifier: 
-  name: 
+  name: Benjamin
   primaryColor: {r: 0.91971487, g: 0.9339623, b: 0.057271298, a: 0}
   image: {fileID: 0}
