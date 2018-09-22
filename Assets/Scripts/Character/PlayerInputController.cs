@@ -6,6 +6,14 @@ using UnityEngine;
 
 class PlayerInputController : CharacterInputController
 {
+    public enum ControllerType
+    {
+        Joystick,
+        KeyboardAndMouse
+    }
+
+    public ControllerType controllerType = ControllerType.Joystick;
+
     public override void UpdateCharacterInput()
     {
         characterInput.horizontal = Input.GetAxis("Horizontal");

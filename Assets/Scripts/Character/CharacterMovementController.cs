@@ -29,28 +29,28 @@ public class CharacterMovementController : MonoBehaviour
         _playerModel = GetComponent<CharacterModel>();
     }
 
-	// Use this for initialization
-	void Start () {
-
+    // Use this for initialization
+    void Start()
+    {
     }
 
     void Update()
     {
         InitIfNeeded();
     }
-	
-	// Update is called once per frame
-	void FixedUpdate ()
-	{
-	    if (isDodging)
-	    {
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        if (isDodging)
+        {
             Dodge();
-	    }
-	    else
-	    {
-	        Move();
-	    }
-	}
+        }
+        else
+        {
+            Move();
+        }
+    }
 
     void Move()
     {
@@ -76,17 +76,43 @@ public class CharacterMovementController : MonoBehaviour
         Vector3 newPos = Vector3.Lerp(transform.position, finalPos, Time.fixedDeltaTime);
         Quaternion newRotation = transform.rotation;
 
+        PlayerInputController playerInputController = _characterInputController as PlayerInputController;
+        bool usingMouseForRotation = playerInputController != null
+                                     && (playerInputController.controllerType ==
+                                         PlayerInputController.ControllerType.KeyboardAndMouse);
+        if (usingMouseForRotation)
+        {
+            Vector3 pos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f);
+            Ray ray = ArenaManager.Instance.arenaCamera.GetComponent<Camera>().ScreenPointToRay(pos);
+
+            RaycastHit raycastHit;
+            if (Physics.Raycast(ray, out raycastHit, float.MaxValue,
+                LayerMask.NameToLayer("MousePositionDetector"), QueryTriggerInteraction.Collide))
+            {
+                Vector3 targetPos = raycastHit.point;
+                targetPos.y = transform.position.y;
+
+                Vector3 facingDir = targetPos - transform.position;
+
+                newRotation = Quaternion.LookRotation(facingDir, transform.up);
+            }
+        }
+
         Vector3 moveDir = transform.forward;
         if (movementDelta.magnitude > 0f)
         {
             moveDir = finalPos - transform.position;
             moveDir.y = transform.position.y;
 
-            newRotation = Quaternion.LookRotation(moveDir, transform.up);
-            newRotation = Quaternion.Lerp(transform.rotation, newRotation, rotationSpeed * Time.fixedDeltaTime);
-            newRotation.x = 0;
-            newRotation.z = 0;
+            if(!usingMouseForRotation)
+            {
+                newRotation = Quaternion.LookRotation(moveDir, transform.up);
+            }
         }
+
+        newRotation = Quaternion.Lerp(transform.rotation, newRotation, rotationSpeed * Time.fixedDeltaTime);
+        newRotation.x = 0;
+        newRotation.z = 0;
 
         transform.position = newPos;
         transform.rotation = newRotation;

@@ -203,6 +203,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 15
   rotationSpeed: 10
+  dodgeSpeed: 20
+  dodgeDuration: 0.5
 --- !u!114 &114882623791437188
 MonoBehaviour:
   m_ObjectHideFlags: 1
