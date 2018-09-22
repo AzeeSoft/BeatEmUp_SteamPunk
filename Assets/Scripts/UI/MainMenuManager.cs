@@ -32,20 +32,20 @@ public class MainMenuManager : MonoBehaviour
 
 	void Update ()
 	{
-		if (Input.GetButtonDown ("Jump"))
+		if (Input.GetButtonDown ("Cancel"))
 		{
 			switch(currentScreen)
 			{
 				case Screen.Start:
-				ShowStartScreen();
-				break;
+					ShowStartScreen();
+					break;
 
 				case Screen.Controls:
-				ShowControlScreen();
-				break;
+					ShowControlScreen();
+					break;
 
 				default:
-				break;
+					break;
 			}
 		}
 	}
@@ -57,6 +57,8 @@ public class MainMenuManager : MonoBehaviour
 		startScreen.gameObject.SetActive(true);
 		controlScreen.gameObject.SetActive(false);
 		startScreenSelectable.Select();
+		
+		Debug.Log("next screen");
 	}
 
 	public void ShowControlScreen ()
