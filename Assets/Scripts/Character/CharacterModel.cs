@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerModel : MonoBehaviour {
-
-    [HideInInspector]
-    public ArenaCamera arenaCamera;
+public class CharacterModel : MonoBehaviour
+{
+    public CharacterData characterData;
 
     void Awake()
     {
@@ -21,4 +20,9 @@ public class PlayerModel : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    void AddToArenaCamera()
+    {
+
+    }
 }

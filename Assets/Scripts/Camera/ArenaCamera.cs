@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class ArenaCamera : MonoBehaviour
 {
-    public List<PlayerModel> playerModels;
-
     public float smoothTime = 0.2f;
     public float zoomFactor = 1f;
     
@@ -15,14 +13,9 @@ public class ArenaCamera : MonoBehaviour
 
     private Vector3 velocity;
 
-    private Vector3 debugMidPos;
-
     void Awake()
     {
-        foreach (PlayerModel playerModel in playerModels)
-        {
-            playerModel.arenaCamera = this;
-        }
+
     }
 
 	// Use this for initialization
@@ -33,26 +26,28 @@ public class ArenaCamera : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(debugMidPos, 0.2f);
+
     }
 	
 	// Update is called once per frame
 	void FixedUpdate ()
 	{
-	    CoverAllPlayers();
+	    CoverAllCharacters();
 	}
 
-    void CoverAllPlayers()
+    void CoverAllCharacters()
     {
-        if (playerModels.Count == 0)
+        ArenaManager arenaManager = ArenaManager.Instance;
+
+        if (arenaManager.characterModels.Count == 0)
         {
             return;
         }
 
-        Bounds bounds = new Bounds(playerModels[0].transform.position, Vector3.zero);
-        for (int i = 0; i < playerModels.Count; i++)
+        Bounds bounds = new Bounds(arenaManager.characterModels[0].transform.position, Vector3.zero);
+        for (int i = 0; i < arenaManager.characterModels.Count; i++)
         {
-            Vector3 playerPos = playerModels[i].transform.position;
+            Vector3 playerPos = arenaManager.characterModels[i].transform.position;
             bounds.Encapsulate(playerPos);
         }
 
@@ -74,10 +69,5 @@ public class ArenaCamera : MonoBehaviour
 
         midPos.x = transform.position.x;
         transform.LookAt(midPos);
-
-
-
-
-        debugMidPos = midPos;
     }
 }
