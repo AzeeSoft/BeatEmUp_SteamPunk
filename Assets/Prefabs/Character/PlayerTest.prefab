@@ -24,8 +24,8 @@ GameObject:
   - component: {fileID: 136542966893335400}
   - component: {fileID: 54915417960789842}
   - component: {fileID: 114882623791437188}
-  - component: {fileID: 114383488792990094}
   - component: {fileID: 114875628784754892}
+  - component: {fileID: 114133739512419242}
   m_Layer: 0
   m_Name: PlayerTest
   m_TagString: Untagged
@@ -40,7 +40,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1938948269640022}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.3, y: 0.5, z: 3.19}
+  m_LocalPosition: {x: 1.75, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -103,17 +103,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!114 &114383488792990094
+--- !u!114 &114133739512419242
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1938948269640022}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d09d2a605ee66d4d8920c1fbf8910fa, type: 3}
+  m_Script: {fileID: 11500000, guid: b0c699a1d2a1f8448a2cc18240a5bc91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 100
+  health: 0
 --- !u!114 &114875628784754892
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -125,7 +127,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a508b56e54f44e24f99878bd5ab27799, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 15
+  rotationSpeed: 10
 --- !u!114 &114882623791437188
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -137,7 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5173bef84fd12af45acf9ef4780ccbfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arenaCamera: {fileID: 0}
+  characterData: {fileID: 0}
 --- !u!136 &136542966893335400
 CapsuleCollider:
   m_ObjectHideFlags: 1
