@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerModel : MonoBehaviour {
 
+    [HideInInspector]
     public ArenaCamera arenaCamera;
 
     void Awake()
