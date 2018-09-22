@@ -13,7 +13,8 @@ public class MainMenuManager : MonoBehaviour
 	public RectTransform controlScreen;
 
 	public Selectable startScreenSelectable;
-	public Selectable continueSelectable;
+
+	public Button continueButton;
 
 	public enum Screen
 	{
@@ -57,8 +58,6 @@ public class MainMenuManager : MonoBehaviour
 		startScreen.gameObject.SetActive(true);
 		controlScreen.gameObject.SetActive(false);
 		startScreenSelectable.Select();
-		
-		Debug.Log("next screen");
 	}
 
 	public void ShowControlScreen ()
@@ -67,8 +66,11 @@ public class MainMenuManager : MonoBehaviour
 		EventSystem.current.SetSelectedGameObject(null);
 		controlScreen.gameObject.SetActive(true);
 		startScreen.gameObject.SetActive(false);
-		continueSelectable.Select();
-		//SceneManager.LoadScene("createUI");
+	}
+
+	public void Continue ()
+	{
+		SceneManager.LoadScene("createUI");
 	}
 }
 
