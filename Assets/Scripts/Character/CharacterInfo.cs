@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "Character Data")]
-public class CharacterData : ScriptableObject
+public class CharacterInfo : ScriptableObject
 {
     public string name;
     public Color primaryColor;

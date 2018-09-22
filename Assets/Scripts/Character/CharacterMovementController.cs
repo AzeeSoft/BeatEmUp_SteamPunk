@@ -80,22 +80,10 @@ public class CharacterMovementController : MonoBehaviour
         bool usingMouseForRotation = playerInputController != null
                                      && (playerInputController.controllerType ==
                                          PlayerInputController.ControllerType.KeyboardAndMouse);
-        if (usingMouseForRotation)
+
+        if (characterInput.facingDir.magnitude > 0)
         {
-            Vector3 pos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f);
-            Ray ray = ArenaManager.Instance.arenaCamera.GetComponent<Camera>().ScreenPointToRay(pos);
-
-            RaycastHit raycastHit;
-            if (Physics.Raycast(ray, out raycastHit, float.MaxValue,
-                LayerMask.NameToLayer("MousePositionDetector"), QueryTriggerInteraction.Collide))
-            {
-                Vector3 targetPos = raycastHit.point;
-                targetPos.y = transform.position.y;
-
-                Vector3 facingDir = targetPos - transform.position;
-
-                newRotation = Quaternion.LookRotation(facingDir, transform.up);
-            }
+            newRotation = Quaternion.LookRotation(characterInput.facingDir, transform.up);
         }
 
         Vector3 moveDir = transform.forward;
@@ -103,11 +91,6 @@ public class CharacterMovementController : MonoBehaviour
         {
             moveDir = finalPos - transform.position;
             moveDir.y = transform.position.y;
-
-            if(!usingMouseForRotation)
-            {
-                newRotation = Quaternion.LookRotation(moveDir, transform.up);
-            }
         }
 
         newRotation = Quaternion.Lerp(transform.rotation, newRotation, rotationSpeed * Time.fixedDeltaTime);

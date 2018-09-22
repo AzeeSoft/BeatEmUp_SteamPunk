@@ -10,6 +10,7 @@ public abstract class CharacterInputController : MonoBehaviour
     {
         public float horizontal;
         public float vertical;
+        public Vector3 facingDir;
         public bool dodge;
     }
 
