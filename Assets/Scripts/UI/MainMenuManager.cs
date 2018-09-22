@@ -1,4 +1,4 @@
-﻿/*using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,6 +19,7 @@ public class MainMenuManager : MonoBehaviour
 	}
 
 	public Screen currentScreen = Screen.Start;
+	public int index = 0;
 	
 	void Awake ()
 	{
@@ -31,7 +32,7 @@ public class MainMenuManager : MonoBehaviour
 	{
 		if (Input.GetButtonDown ("Cancel"))
 		{
-			switch(Index)
+			switch(index)
 			{
 				case 0:
 				ShowStartScreen();
@@ -59,5 +60,5 @@ public class MainMenuManager : MonoBehaviour
 	{
 
 	}
-}*/
+}
 
