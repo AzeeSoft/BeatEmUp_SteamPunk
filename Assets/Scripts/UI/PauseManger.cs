@@ -8,6 +8,7 @@ public class PauseManger : MonoBehaviour
 {
 	public RectTransform pauseMenuRoot;
 	public Image healthBar;
+	public Image controllerImage;
 
 	void Awake ()
 	{
@@ -30,11 +31,6 @@ public class PauseManger : MonoBehaviour
 	public void QuitGame ()
 	{
 		Application.Quit();
-	}
-
-	void Controls ()
-	{
-		//Game Controls
 	}
 
 	void Update ()
