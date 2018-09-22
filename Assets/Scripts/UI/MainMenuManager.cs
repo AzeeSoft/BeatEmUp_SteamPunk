@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour 
 {
 	public static MainMenuManager instance;
+
 	public RectTransform startScreen;
 	public RectTransform controlScreen;
 
 	public Selectable startScreenSelectable;
+	public Selectable continueSelectable;
 
 	public enum Screen
 	{
@@ -19,7 +22,6 @@ public class MainMenuManager : MonoBehaviour
 	}
 
 	public Screen currentScreen = Screen.Start;
-	public int index = 0;
 	
 	void Awake ()
 	{
@@ -30,15 +32,15 @@ public class MainMenuManager : MonoBehaviour
 
 	void Update ()
 	{
-		if (Input.GetButtonDown ("Cancel"))
+		if (Input.GetButtonDown ("Jump"))
 		{
-			switch(index)
+			switch(currentScreen)
 			{
-				case 0:
+				case Screen.Start:
 				ShowStartScreen();
 				break;
 
-				case 1:
+				case Screen.Controls:
 				ShowControlScreen();
 				break;
 
@@ -53,12 +55,18 @@ public class MainMenuManager : MonoBehaviour
 		currentScreen = Screen.Start;
 		EventSystem.current.SetSelectedGameObject(null);
 		startScreen.gameObject.SetActive(true);
+		controlScreen.gameObject.SetActive(false);
 		startScreenSelectable.Select();
 	}
 
 	public void ShowControlScreen ()
 	{
-
+		currentScreen = Screen.Controls;
+		EventSystem.current.SetSelectedGameObject(null);
+		controlScreen.gameObject.SetActive(true);
+		startScreen.gameObject.SetActive(false);
+		continueSelectable.Select();
+		//SceneManager.LoadScene("createUI");
 	}
 }
 

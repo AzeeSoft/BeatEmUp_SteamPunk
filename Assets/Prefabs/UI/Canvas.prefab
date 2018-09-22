@@ -654,6 +654,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenuRoot: {fileID: 224702729214408026}
+  healthBar: {fileID: 114598055290591728}
 --- !u!114 &114978502048619308
 MonoBehaviour:
   m_ObjectHideFlags: 1
