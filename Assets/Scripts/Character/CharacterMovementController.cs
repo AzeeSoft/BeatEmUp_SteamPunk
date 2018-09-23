@@ -144,6 +144,7 @@ public class CharacterMovementController : MonoBehaviour
 
     void Dodge()
     {
+        dodgingDir.Normalize();
         Vector3 movementDelta = dodgingDir * dodgeSpeed;
         Vector3 finalPos = transform.position + movementDelta;
         Vector3 newPos = Vector3.Lerp(transform.position, finalPos, Time.fixedDeltaTime);

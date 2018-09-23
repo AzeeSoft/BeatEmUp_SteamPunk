@@ -12,10 +12,10 @@ public class GameManager : MonoBehaviour
 
 	public Text youLoseText;
 	public Text timerText;
+	public Text youWinText;
 
 	bool gameOver;
 
-	public RectTransform endGame;
 	public RectTransform credits;
 	
 	private void Awake()
@@ -39,9 +39,10 @@ public class GameManager : MonoBehaviour
 		while (enabled)
 		{
 			youLoseText.text = "Sad, You Lose";
-			gameOver = true;
 			StopCoroutine("Timer");
+			timerText.gameObject.SetActive(false);
 			yield return new WaitForSeconds (2f);
+			SceneManager.LoadScene("Start Screen");
 		}
     }
 
@@ -51,6 +52,19 @@ public class GameManager : MonoBehaviour
 		{
 			timerText.text = "Time: " + (int)(startTime - Time.time);
 			yield return new WaitForSeconds(1);
+			//If timer == 0 {player with greatest health; StartCouroutine("Game Over);}
+		}
+	}
+
+	public IEnumerator GameOver ()
+	{
+		while (enabled)
+		{
+			youWinText.text = "You Win!";
+			StopCoroutine("Timer");
+			timerText.gameObject.SetActive(false);
+			yield return new WaitForSeconds (2f);			
+			credits.gameObject.SetActive(true);
 		}
 	}
 }
