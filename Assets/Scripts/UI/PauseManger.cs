@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class PauseManger : MonoBehaviour 
 {
@@ -31,7 +32,8 @@ public class PauseManger : MonoBehaviour
 
 	public void QuitGame ()
 	{
-		Application.Quit();
+//		Application.Quit();
+        SceneManager.LoadScene("StartScreen");
 	}
 
 	void Update ()
