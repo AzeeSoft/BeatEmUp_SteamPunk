@@ -298,7 +298,8 @@ Prefab:
         type: 2}
       propertyPath: characterSpawnDataList.Array.data[1].characterInputController
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 114293783351049922, guid: da0844fcd1edd0140b55d4dccdaad12b,
+        type: 2}
     - target: {fileID: 114078594037266428, guid: abe9a7a1de884bf4b94725e746d84fab,
         type: 2}
       propertyPath: characterSpawnDataList.Array.data[1].characterHudInfo
