@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -8,16 +9,20 @@ public class GameManager : MonoBehaviour
 {
 	public static GameManager instance;
 
-	public float startTime = 60f;
+	public float totalTime = 60f;
+	private float startTime = 0f;
 
 	public Text youLoseText;
 	public Text timerText;
 	public Text youWinText;
 
-	bool gameOver;
+	public bool gameOver;
 
 	public RectTransform credits;
-	
+
+    public GameObject YouWinGameObject;
+    public GameObject YouLoseGameObject;
+
 	private void Awake()
     {
         if (instance == null) instance = this;
@@ -50,9 +55,20 @@ public class GameManager : MonoBehaviour
 	{
 		while (enabled)
 		{
-			timerText.text = "Time: " + (int)(startTime - Time.time);
+		    int timeLeft = (int) (totalTime - (Time.time - startTime));
+            if (timeLeft <= 0)
+            {
+                timeLeft = 0;
+
+                CharacterModel winner = ArenaManager.Instance.GetWinningPlayer();
+                if (winner != null)
+                {
+                    ShowGameOver(winner);
+                }
+            }
+
+            timerText.text = "Time: " + timeLeft;
 			yield return new WaitForSeconds(1);
-			//If timer == 0 {player with greatest health; StartCouroutine("Game Over);}
 		}
 	}
 
@@ -67,4 +83,19 @@ public class GameManager : MonoBehaviour
 			credits.gameObject.SetActive(true);
 		}
 	}
+
+    public void ResetTimer()
+    {
+        startTime = Time.time;
+    }
+
+    public void ShowGameOver(CharacterModel winner)
+    {
+        gameOver = true;
+        youWinText.text = winner.CharacterInfo.name + " Wins!!";
+        StopCoroutine("Timer");
+        timerText.gameObject.SetActive(false);
+        Time.timeScale = 0;
+        YouWinGameObject.SetActive(true);
+    }
 }

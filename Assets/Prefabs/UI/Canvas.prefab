@@ -784,7 +784,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.7075472, g: 0.7075472, b: 0.7075472, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -796,7 +796,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 114941376816588374}
   m_FillRect: {fileID: 224925277016860328}
   m_HandleRect: {fileID: 0}
@@ -1771,11 +1771,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff589bb654fbe3548a97998ad41dcc5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startTime: 180
+  totalTime: 180
   youLoseText: {fileID: 114136638827627544}
   timerText: {fileID: 114263998436983138}
   youWinText: {fileID: 114642103089346078}
+  gameOver: 0
   credits: {fileID: 224436290414464902}
+  YouWinGameObject: {fileID: 1294118969696646}
+  YouLoseGameObject: {fileID: 1880869550094116}
 --- !u!114 &114767531418021664
 MonoBehaviour:
   m_ObjectHideFlags: 1

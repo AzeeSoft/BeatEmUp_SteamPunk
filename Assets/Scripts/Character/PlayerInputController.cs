@@ -14,8 +14,25 @@ class PlayerInputController : CharacterInputController
 
     public ControllerType controllerType = ControllerType.Joystick;
 
+    private string suffix = "";
+
+    void PrepareSuffix()
+    {
+        switch (controllerType)
+        {
+            case ControllerType.KeyboardAndMouse:
+                suffix = "";
+                break;
+            case ControllerType.Joystick:
+                suffix = "_J0";
+                break;
+        }
+    }
+
     public override void UpdateCharacterInput()
     {
+        PrepareSuffix();
+
         UpdateMoveInput();
         UpdateFacingDirInput();
         UpdateBlockInput();
@@ -24,9 +41,9 @@ class PlayerInputController : CharacterInputController
 
     void UpdateMoveInput()
     {
-        characterInput.horizontal = Input.GetAxis("Horizontal");
-        characterInput.vertical = Input.GetAxis("Vertical");
-        characterInput.dodge = Input.GetButtonDown("Dodge");
+        characterInput.horizontal = Input.GetAxis("Horizontal" + suffix);
+        characterInput.vertical = Input.GetAxis("Vertical" + suffix);
+        characterInput.dodge = Input.GetButtonDown("Dodge" + suffix);
 
         Vector2 tester = new Vector2(characterInput.horizontal, characterInput.vertical);
         if (tester.magnitude > 1)
@@ -49,8 +66,8 @@ class PlayerInputController : CharacterInputController
 
         if (controllerType == ControllerType.Joystick)
         {
-            float horRot = Input.GetAxis("Rotation Horizontal");
-            float verRot = Input.GetAxis("Rotation Vertical");
+            float horRot = Input.GetAxis("Rotation Horizontal" + suffix);
+            float verRot = Input.GetAxis("Rotation Vertical" + suffix);
 
             characterInput.facingDir =
                 (cameraRight * horRot) +
@@ -76,13 +93,13 @@ class PlayerInputController : CharacterInputController
 
     void UpdateBlockInput()
     {
-        characterInput.block = Input.GetButton("Block");
+        characterInput.block = Input.GetButton("Block" + suffix);
     }
 
     void UpdateAttackInput()
     {
-        characterInput.lightAttack = Input.GetButton("Fire1");
-        characterInput.specialAttackCharge = Input.GetButton("Fire2");
-        characterInput.specialAttack = Input.GetButtonUp("Fire2");
+        characterInput.lightAttack = Input.GetButton("Fire1" + suffix);
+        characterInput.specialAttackCharge = Input.GetButton("Fire2" + suffix);
+        characterInput.specialAttack = Input.GetButtonUp("Fire2" + suffix);
     }
 }
