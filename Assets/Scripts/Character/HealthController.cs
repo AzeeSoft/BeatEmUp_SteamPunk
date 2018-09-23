@@ -9,11 +9,15 @@ public class HealthController : MonoBehaviour {
 
 	public float maxHealth = 100f;
 	public float health;
-	Animator anim;
+
+    void ResetController()
+    {
+        health = maxHealth;
+    }
 
 	void Awake ()
 	{
-		health = maxHealth;
+	    ResetController();
 	}
 	
 	public void TakeDamage (float damage)

@@ -10,17 +10,28 @@ public class CharacterMovementController : MonoBehaviour
     public float dodgeDuration = 3;
 
     private CharacterModel _playerModel;
+    private CharacterCombatController _characterCombatController;
     private CharacterInputController _characterInputController;
 
     private bool isDodging = false;
     private float dodgeStart = 0;
     private Vector3 dodgingDir;
 
+    public bool IsDodging
+    {
+        get { return isDodging; }
+    }
+
     void InitIfNeeded()
     {
         if (!_characterInputController)
         {
             _characterInputController = GetComponentInChildren<CharacterInputController>();
+        }
+
+        if (!_characterCombatController)
+        {
+            _characterCombatController = GetComponent<CharacterCombatController>();
         }
     }
 
@@ -71,15 +82,16 @@ public class CharacterMovementController : MonoBehaviour
         float zDelta = characterInput.vertical * speed;
 
         Vector3 movementDelta = (cameraRight * xDelta) + (cameraForward * zDelta);
+
+        if (_characterCombatController.isBlocking)
+        {
+            movementDelta = Vector3.zero;
+        }
+
         Vector3 finalPos = transform.position + movementDelta;
 
         Vector3 newPos = Vector3.Lerp(transform.position, finalPos, Time.fixedDeltaTime);
         Quaternion newRotation = transform.rotation;
-
-        PlayerInputController playerInputController = _characterInputController as PlayerInputController;
-        bool usingMouseForRotation = playerInputController != null
-                                     && (playerInputController.controllerType ==
-                                         PlayerInputController.ControllerType.KeyboardAndMouse);
 
         if (characterInput.facingDir.magnitude > 0)
         {
@@ -100,7 +112,8 @@ public class CharacterMovementController : MonoBehaviour
         transform.position = newPos;
         transform.rotation = newRotation;
 
-        if (characterInput.dodge)
+        if (characterInput.dodge && !_characterCombatController.isChargingSpirit &&
+            !_characterCombatController.isSpecialAttackActive)
         {
             isDodging = true;
             dodgingDir = moveDir.normalized;

@@ -16,6 +16,14 @@ class PlayerInputController : CharacterInputController
 
     public override void UpdateCharacterInput()
     {
+        UpdateMoveInput();
+        UpdateFacingDirInput();
+        UpdateBlockInput();
+        UpdateAttackInput();
+    }
+
+    void UpdateMoveInput()
+    {
         characterInput.horizontal = Input.GetAxis("Horizontal");
         characterInput.vertical = Input.GetAxis("Vertical");
         characterInput.dodge = Input.GetButtonDown("Dodge");
@@ -27,7 +35,10 @@ class PlayerInputController : CharacterInputController
             characterInput.horizontal = tester.x;
             characterInput.vertical = tester.y;
         }
+    }
 
+    void UpdateFacingDirInput()
+    {
         ArenaManager arenaManager = ArenaManager.Instance;
 
         Vector3 cameraForward = arenaManager.arenaCamera.transform.forward;
@@ -61,5 +72,17 @@ class PlayerInputController : CharacterInputController
                 characterInput.facingDir = targetPos - transform.position;
             }
         }
+    }
+
+    void UpdateBlockInput()
+    {
+        characterInput.block = Input.GetButton("Block");
+    }
+
+    void UpdateAttackInput()
+    {
+        characterInput.lightAttack = Input.GetButton("Fire1");
+        characterInput.specialAttackCharge = Input.GetButton("Fire2");
+        characterInput.specialAttack = Input.GetButtonUp("Fire2");
     }
 }
