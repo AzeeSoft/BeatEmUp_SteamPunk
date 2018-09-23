@@ -20,6 +20,7 @@ public class LiTianCombatController : CharacterCombatController
     {
         GameObject fireballGameObject =
             Instantiate(fireballPrefab, fireballSpawnTransform.position, fireballSpawnTransform.rotation);
+        fireballGameObject.GetComponent<Fireball>().owner = _characterModel;
         return true;
     }
 
@@ -28,11 +29,8 @@ public class LiTianCombatController : CharacterCombatController
         return true;
     }
 
-    public override void CancellingSpiritCharge()
+    public override void SpecialAttack(float chargedSpirit)
     {
-    }
-
-    public override void SpecialAttack()
-    {
+        Debug.Log("Charged Spirit: " + chargedSpirit);
     }
 }
