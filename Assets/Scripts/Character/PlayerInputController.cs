@@ -98,8 +98,26 @@ class PlayerInputController : CharacterInputController
 
     void UpdateAttackInput()
     {
-        characterInput.lightAttack = Input.GetButton("Fire1" + suffix);
-        characterInput.specialAttackCharge = Input.GetButton("Fire2" + suffix);
-        characterInput.specialAttack = Input.GetButtonUp("Fire2" + suffix);
+        switch (controllerType)
+        {
+            case ControllerType.Joystick:
+                float fire1_2 = Input.GetAxis("Fire1_2_J0");
+                bool oldSpecialAttackCharge = characterInput.specialAttackCharge;
+
+                characterInput.specialAttackCharge = fire1_2 < 0;
+                characterInput.lightAttack = fire1_2 > 0;
+
+                if (!characterInput.specialAttackCharge && oldSpecialAttackCharge)
+                {
+                    characterInput.specialAttack = true;
+                }
+                
+                break;
+            case ControllerType.KeyboardAndMouse:
+                characterInput.lightAttack = Input.GetButton("Fire1" + suffix);
+                characterInput.specialAttackCharge = Input.GetButton("Fire2" + suffix);
+                characterInput.specialAttack = Input.GetButtonUp("Fire2" + suffix);
+                break;
+        }
     }
 }

@@ -59,7 +59,7 @@ public class Explosion : MonoBehaviour
     IEnumerator PlaySpecialAttackSequence()
     {
         explosionParticleSystem.Play();
-        yield return new WaitForSeconds(1f);
+//        yield return new WaitForSeconds(1f);
 
         CharacterCombatController characterCombatController = owner.GetComponent<CharacterCombatController>();
 
