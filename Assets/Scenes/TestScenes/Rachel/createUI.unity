@@ -212,7 +212,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1401527184394980, guid: 38ded55a70b1e2f49b79fbb06b02c3bf, type: 2}
       propertyPath: m_Name
-      value: Canvas
+      value: GameCanvas
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 38ded55a70b1e2f49b79fbb06b02c3bf, type: 2}
