@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 public class PauseManger : MonoBehaviour 
 {
 	public RectTransform pauseMenuRoot;
+	public Text timerText;
 	public Image controllerImage;
 
 	void Awake ()
@@ -17,12 +18,14 @@ public class PauseManger : MonoBehaviour
 	void PauseGame ()
 	{
 		pauseMenuRoot.gameObject.SetActive(true);
+		timerText.gameObject.SetActive(false);
 		Time.timeScale = 0;
 	}
 	
 	public void ResumeGame ()
 	{
 		pauseMenuRoot.gameObject.SetActive(false);
+		timerText.gameObject.SetActive(true);
 		Time.timeScale = 1;
 	}
 
