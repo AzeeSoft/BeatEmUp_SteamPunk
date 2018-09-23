@@ -7,6 +7,9 @@ public class LiTianCombatController : CharacterCombatController
     public GameObject fireballPrefab;
     public Transform fireballSpawnTransform;
 
+    public ParticleSystem spiritChargingParticleSystem;
+    public ParticleSystem explosionParticleSystem;
+
     public override bool Block()
     {
         return true;
@@ -26,17 +29,19 @@ public class LiTianCombatController : CharacterCombatController
 
     public override bool StartingSpiritCharge()
     {
+        spiritChargingParticleSystem.Play();
         return true;
     }
 
     public override void CancellingSpiritCharge()
     {
-
+        spiritChargingParticleSystem.Stop();
     }
 
     public override void SpecialAttack(float chargedSpirit)
     {
         AudioManager.instance.PlayEffect(AudioManager.AudioData.Explosion);
         Debug.Log("Charged Spirit: " + chargedSpirit);
+        explosionParticleSystem.Play();
     }
 }

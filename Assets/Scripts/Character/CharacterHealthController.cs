@@ -14,6 +14,8 @@ public class CharacterHealthController : MonoBehaviour {
 
     public float spiritReleasePerDamage = 1f;
 
+    public float hitVolume = 0.5f;
+
     private CharacterCombatController _characterCombatController;
     private Animator _animator;
 
@@ -65,6 +67,7 @@ public class CharacterHealthController : MonoBehaviour {
 	        OnPlayerDeath();
 	    }
         
+        AudioManager.instance.PlayEffect(AudioManager.AudioData.GettingHit, transform, hitVolume);
         _animator.SetTrigger("Hit");
 	}
 

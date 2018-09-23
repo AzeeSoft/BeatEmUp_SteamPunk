@@ -28,7 +28,7 @@ public class Fireball : MonoBehaviour
     void Start()
     {
         startTime = Time.time;
-        AudioManager.instance.PlayEffect(AudioManager.AudioData.MonkLightATK, null, volume);
+        AudioManager.instance.PlayEffect(AudioManager.AudioData.MonkLightATK, transform, volume);
     }
 
     // Update is called once per frame

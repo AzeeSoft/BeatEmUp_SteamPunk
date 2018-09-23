@@ -15,7 +15,8 @@ public class AudioManager : MonoBehaviour
         TimeLightATK,
         Explosion,
         MonkLightATK,
-        GameplayTheme
+        GameplayTheme,
+        GettingHit
     }
 
     public AudioClip music;

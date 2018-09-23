@@ -64,6 +64,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: fdaa22dcf66c3f6498e0c5adf7464d3c, type: 3}
   - {fileID: 8300000, guid: 6d4b317342870494eb2a17a2404ab87a, type: 3}
   - {fileID: 8300000, guid: f1f54845c1699da43b5130044d06b9bf, type: 3}
+  - {fileID: 8300000, guid: 176b36770f812024b9f5b1247c703109, type: 3}
   mixers: []
   musicMixer: {fileID: 0}
   defaultSFXMixer: {fileID: 0}
