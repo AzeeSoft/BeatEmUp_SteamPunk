@@ -7,6 +7,11 @@ public class Fireball : MonoBehaviour
     public float speed = 5;
     public float maxLifetime = 2f;
 
+    public float damage = 5f;
+
+    [HideInInspector]
+    public CharacterModel owner;
+
     private float startTime;
     private ParticleSystem particleSystem;
     private Light light;
@@ -17,17 +22,17 @@ public class Fireball : MonoBehaviour
         light = GetComponentInChildren<Light>();
     }
 
-	// Use this for initialization
-	void Start ()
-	{
-	    startTime = Time.time;
-	}
-	
-	// Update is called once per frame
-	void Update ()
-	{
+    // Use this for initialization
+    void Start()
+    {
+        startTime = Time.time;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         MoveFireball();
-	}
+    }
 
     void MoveFireball()
     {
@@ -38,7 +43,8 @@ public class Fireball : MonoBehaviour
         {
             if (particleSystem.transform.localScale.magnitude > 0.05f)
             {
-                particleSystem.transform.localScale = Vector3.Lerp(particleSystem.transform.localScale, Vector3.zero, Time.deltaTime);
+                particleSystem.transform.localScale =
+                    Vector3.Lerp(particleSystem.transform.localScale, Vector3.zero, Time.deltaTime);
                 light.range = Mathf.Lerp(light.range, 0, Time.deltaTime);
             }
             else
@@ -46,5 +52,22 @@ public class Fireball : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+    }
+
+    void OnTriggerEnter(Collider otherCollider)
+    {
+        if (owner == null || otherCollider.gameObject == owner.gameObject)
+        {
+            return;
+        }
+
+        CharacterHealthController characterHealthController =
+            otherCollider.gameObject.GetComponent<CharacterHealthController>();
+        if (characterHealthController != null)
+        {
+            characterHealthController.TakeDamage(damage);
+        }
+
+        Destroy(gameObject);
     }
 }

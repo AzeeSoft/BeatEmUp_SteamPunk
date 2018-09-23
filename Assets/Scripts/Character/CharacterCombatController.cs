@@ -4,8 +4,10 @@ using UnityEngine;
 
 public abstract class CharacterCombatController : MonoBehaviour
 {
+    public float blockDamageReducer = 0.5f;
     public float maxSpirit = 100;
     public float spirit;
+    public float spiritChargeRate = 30;
     public float totalLightAttackCooldownTime = 0.5f;
 
     public float specialAttackAnimDuration = 1f;
@@ -14,14 +16,23 @@ public abstract class CharacterCombatController : MonoBehaviour
     public bool isChargingSpirit = false;
     public bool isSpecialAttackActive = false;
 
-    private CharacterMovementController _characterMovementController;
-    private CharacterInputController _characterInputController;
-    private Animator _animator;
+
+    protected CharacterModel _characterModel;
+    protected CharacterMovementController _characterMovementController;
+    protected CharacterInputController _characterInputController;
+    protected Animator _animator;
+
+    private float chargedSpirit = 0;
 
     private float lightAttackCooldownTimer = 0;
 
     void InitIfNeeded()
     {
+        if (!_characterModel)
+        {
+            _characterModel = GetComponentInChildren<CharacterModel>();
+        }
+
         if (!_characterInputController)
         {
             _characterInputController = GetComponentInChildren<CharacterInputController>();
@@ -101,8 +112,9 @@ public abstract class CharacterCombatController : MonoBehaviour
         {
             if (characterInput.specialAttack)
             {
-                SpecialAttack();
+                SpecialAttack(chargedSpirit);
                 isSpecialAttackActive = true;
+                chargedSpirit = 0;
 
                 _animator.SetTrigger("Special");
                 StartCoroutine(OnSpecialAttackUnleashed());
@@ -110,15 +122,18 @@ public abstract class CharacterCombatController : MonoBehaviour
 
             if (characterInput.specialAttackCharge)
             {
-                StartingSpiritCharge();
-                isChargingSpirit = true;
-                _animator.SetBool("isCharging", true);
+                if (!isChargingSpirit)
+                {
+                    StartingSpiritCharge();
+                    isChargingSpirit = true;
+                    chargedSpirit = 0;
+                    _animator.SetBool("isCharging", true);
+                }
             }
             else
             {
                 if (isChargingSpirit)
                 {
-                    CancellingSpiritCharge();
                     isChargingSpirit = false;
                     _animator.SetBool("isCharging", false);
                 }
@@ -140,10 +155,31 @@ public abstract class CharacterCombatController : MonoBehaviour
         {
             if (isChargingSpirit)
             {
-                CancellingSpiritCharge();
                 isChargingSpirit = false;
                 _animator.SetBool("isCharging", false);
             }
+        }
+
+        if (isChargingSpirit)
+        {
+            ChargeSpirit();
+        }
+    }
+
+    void ChargeSpirit()
+    {
+        if (spirit > 0)
+        {
+            float deltaSpirit = spiritChargeRate * Time.deltaTime;
+
+            spirit -= deltaSpirit;
+            if (spirit < 0)
+            {
+                deltaSpirit += spirit;
+                spirit = 0;
+            }
+
+            chargedSpirit += deltaSpirit;
         }
     }
 
@@ -153,10 +189,18 @@ public abstract class CharacterCombatController : MonoBehaviour
         isSpecialAttackActive = false;
     }
 
+    public void AddSpirit(float newSpirit)
+    {
+        spirit += newSpirit;
+        if (spirit > maxSpirit)
+        {
+            spirit = maxSpirit;
+        }
+    } 
+
     public abstract bool Block();
     public abstract void Unblock();
     public abstract bool LightAttack();
     public abstract bool StartingSpiritCharge();
-    public abstract void CancellingSpiritCharge();
-    public abstract void SpecialAttack();
+    public abstract void SpecialAttack(float chargedSpirit);
 }

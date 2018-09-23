@@ -1605,6 +1605,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpirit: 100
   spirit: 0
+  spiritChargeRate: 30
   totalLightAttackCooldownTime: 0.6
   specialAttackAnimDuration: 0.75
   isBlocking: 0
