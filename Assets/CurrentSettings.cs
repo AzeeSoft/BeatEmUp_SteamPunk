@@ -12,8 +12,8 @@ public class CurrentSettings : MonoBehaviour {
 
     public bool multiplayer;
 
-    public characters player1;
-     public characters player2;
+    public characters player1 = characters.LiTian;
+     public characters player2 = characters.Benjamin; 
 
     public static CurrentSettings instance = null;
 
