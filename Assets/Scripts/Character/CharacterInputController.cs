@@ -29,6 +29,12 @@ public abstract class CharacterInputController : MonoBehaviour
 
     protected void Update()
     {
+        if (_characterModel.GetComponent<CharacterHealthController>().isDead)
+        {
+            characterInput = new CharacterInput();
+            return;
+        }
+
         UpdateCharacterInput();   
     }
 

@@ -11,6 +11,8 @@ public class PauseManger : MonoBehaviour
 	public Text timerText;
 	public Image controllerImage;
 
+    public GameObject controllerPanel;
+
 	void Awake ()
 	{
 		ResumeGame();
@@ -40,6 +42,8 @@ public class PauseManger : MonoBehaviour
 	{
 		if (Input.GetButtonDown("Cancel"))
 		{
+            controllerPanel.SetActive(false);
+
 			if (pauseMenuRoot.gameObject.activeSelf) ResumeGame();
 			else PauseGame();
 		}
