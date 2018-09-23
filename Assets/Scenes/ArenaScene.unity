@@ -113,6 +113,52 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &237613686
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4338821903149746, guid: f63df6e54d3a68043a8adb7a336aab56, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338821903149746, guid: f63df6e54d3a68043a8adb7a336aab56, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 35.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338821903149746, guid: f63df6e54d3a68043a8adb7a336aab56, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338821903149746, guid: f63df6e54d3a68043a8adb7a336aab56, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338821903149746, guid: f63df6e54d3a68043a8adb7a336aab56, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338821903149746, guid: f63df6e54d3a68043a8adb7a336aab56, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338821903149746, guid: f63df6e54d3a68043a8adb7a336aab56, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338821903149746, guid: f63df6e54d3a68043a8adb7a336aab56, type: 2}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1524058591213098, guid: f63df6e54d3a68043a8adb7a336aab56, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: f63df6e54d3a68043a8adb7a336aab56, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &276638219
 GameObject:
   m_ObjectHideFlags: 0
@@ -236,11 +282,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114078594037266428, guid: abe9a7a1de884bf4b94725e746d84fab,
-        type: 2}
-      propertyPath: characterSpawnDataList.Array.size
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 4539555741330302, guid: abe9a7a1de884bf4b94725e746d84fab, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -275,6 +316,16 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114078594037266428, guid: abe9a7a1de884bf4b94725e746d84fab,
         type: 2}
+      propertyPath: hud1
+      value: 
+      objectReference: {fileID: 1392264029}
+    - target: {fileID: 114078594037266428, guid: abe9a7a1de884bf4b94725e746d84fab,
+        type: 2}
+      propertyPath: hud2
+      value: 
+      objectReference: {fileID: 857487563}
+    - target: {fileID: 114078594037266428, guid: abe9a7a1de884bf4b94725e746d84fab,
+        type: 2}
       propertyPath: characterSpawnDataList.Array.data[0].transform
       value: 
       objectReference: {fileID: 2037209200}
@@ -288,18 +339,6 @@ Prefab:
       propertyPath: characterSpawnDataList.Array.data[1].transform
       value: 
       objectReference: {fileID: 1864994135}
-    - target: {fileID: 114078594037266428, guid: abe9a7a1de884bf4b94725e746d84fab,
-        type: 2}
-      propertyPath: characterSpawnDataList.Array.data[1].characterPrefab
-      value: 
-      objectReference: {fileID: 1938948269640022, guid: 9bfbb028c1c8d794d9fa7b86a29518a3,
-        type: 2}
-    - target: {fileID: 114078594037266428, guid: abe9a7a1de884bf4b94725e746d84fab,
-        type: 2}
-      propertyPath: characterSpawnDataList.Array.data[1].characterInputController
-      value: 
-      objectReference: {fileID: 114839368472544886, guid: 34fb031d2ce2a4e45ad4e46a500fb928,
-        type: 2}
     - target: {fileID: 114078594037266428, guid: abe9a7a1de884bf4b94725e746d84fab,
         type: 2}
       propertyPath: characterSpawnDataList.Array.data[1].characterHudInfo
@@ -380,7 +419,7 @@ Prefab:
     - target: {fileID: 114382192393316710, guid: 3e6c1128e50a5724d8d1359d4f93d9d2,
         type: 2}
       propertyPath: minDistance
-      value: 40
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3e6c1128e50a5724d8d1359d4f93d9d2, type: 2}
@@ -525,6 +564,21 @@ Prefab:
         type: 2}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224467115225085266, guid: 38ded55a70b1e2f49b79fbb06b02c3bf,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 4.899994
+      objectReference: {fileID: 0}
+    - target: {fileID: 224174402847391584, guid: 38ded55a70b1e2f49b79fbb06b02c3bf,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: -4.899994
+      objectReference: {fileID: 0}
+    - target: {fileID: 224984706321191934, guid: 38ded55a70b1e2f49b79fbb06b02c3bf,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: -5.25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 38ded55a70b1e2f49b79fbb06b02c3bf, type: 2}

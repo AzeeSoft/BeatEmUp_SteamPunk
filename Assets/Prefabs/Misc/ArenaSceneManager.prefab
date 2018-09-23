@@ -51,12 +51,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ea311e3d8bbfec469f5a1c333cef6d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerKM: {fileID: 114293783351049922, guid: 074f0b14ff0cf5247b6153b745808811, type: 2}
+  playerJ: {fileID: 114293783351049922, guid: da0844fcd1edd0140b55d4dccdaad12b, type: 2}
+  ai: {fileID: 114839368472544886, guid: 34fb031d2ce2a4e45ad4e46a500fb928, type: 2}
+  hud1: {fileID: 0}
+  hud2: {fileID: 0}
+  monkPrefab: {fileID: 1938948269640022, guid: 4c630faa2bf8633409872728bf3c042b, type: 2}
+  benjaminPrefab: {fileID: 1524058591213098, guid: f63df6e54d3a68043a8adb7a336aab56,
+    type: 2}
   arenaCamera: {fileID: 0}
   characterSpawnDataList:
   - transform: {fileID: 0}
-    characterPrefab: {fileID: 1938948269640022, guid: 4c630faa2bf8633409872728bf3c042b,
+    characterPrefab: {fileID: 1524058591213098, guid: f63df6e54d3a68043a8adb7a336aab56,
       type: 2}
     characterInputController: {fileID: 114293783351049922, guid: 074f0b14ff0cf5247b6153b745808811,
+      type: 2}
+    characterHudInfo: {fileID: 0}
+  - transform: {fileID: 0}
+    characterPrefab: {fileID: 1524058591213098, guid: f63df6e54d3a68043a8adb7a336aab56,
+      type: 2}
+    characterInputController: {fileID: 114839368472544886, guid: 34fb031d2ce2a4e45ad4e46a500fb928,
       type: 2}
     characterHudInfo: {fileID: 0}
   characterModels: []

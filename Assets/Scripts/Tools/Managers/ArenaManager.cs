@@ -14,6 +14,16 @@ public class ArenaManager : MonoBehaviour {
         public CharacterHUDInfo characterHudInfo;
     }
 
+    public CharacterInputController playerKM;
+    public CharacterInputController playerJ;
+    public CharacterInputController ai;
+
+    public CharacterHUDInfo hud1;
+    public CharacterHUDInfo hud2;
+
+    public GameObject monkPrefab;
+    public GameObject benjaminPrefab;
+
     [HideInInspector]
     public ArenaCamera arenaCamera;
 
@@ -41,6 +51,7 @@ public class ArenaManager : MonoBehaviour {
 	void Start () {
 	    SpawnCharacters();
 
+        GameManager.instance.ResetTimer();
         AudioManager.instance.PlayMusic(AudioManager.AudioData.GameplayTheme, true);
     }
 	
