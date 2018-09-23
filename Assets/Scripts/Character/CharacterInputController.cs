@@ -20,14 +20,14 @@ public abstract class CharacterInputController : MonoBehaviour
 
     public CharacterInput characterInput = new CharacterInput();
 
-    private CharacterModel _characterModel;
+    protected CharacterModel _characterModel;
 
-    void Awake()
+    protected void Awake()
     {
-        _characterModel = GetComponent<CharacterModel>();
+        _characterModel = GetComponentInParent<CharacterModel>();
     }
 
-    void Update()
+    protected void Update()
     {
         UpdateCharacterInput();   
     }
