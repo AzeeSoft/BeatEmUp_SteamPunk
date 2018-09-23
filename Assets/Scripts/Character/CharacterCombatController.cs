@@ -27,7 +27,7 @@ public abstract class CharacterCombatController : MonoBehaviour
     protected Animator _animator;
 
     private float chargedSpirit = 0;
-    private bool canChargeSpirit = false;
+    private bool canChargeSpirit = true;
 
     private float lightAttackCooldownTimer = 0;
 
@@ -146,7 +146,7 @@ public abstract class CharacterCombatController : MonoBehaviour
 
             if (characterInput.specialAttackCharge)
             {
-                if (!isChargingSpirit && spirit >= minSpiritConsumption)
+                if (!isChargingSpirit && spirit >= minSpiritConsumption && canChargeSpirit)
                 {
                     StartingSpiritCharge();
                     isChargingSpirit = true;
@@ -227,7 +227,7 @@ public abstract class CharacterCombatController : MonoBehaviour
 
     public void CancelSpiritCharge()
     {
-        if (isChargingSpirit)
+        if (isChargingSpirit && canChargeSpirit)
         {
             chargedSpirit = 0;
             isChargingSpirit = false;
@@ -241,6 +241,7 @@ public abstract class CharacterCombatController : MonoBehaviour
 
     IEnumerator DisableSpiritChargeTemporarily()
     {
+        Debug.Log("Blocking Spirit Charge");
         canChargeSpirit = false;
         yield return new WaitForSeconds(spiritChargeBlockDuration);
         canChargeSpirit = true;
