@@ -96,10 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c4a02cfb5880b340904c9c362743dab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerModels:
-  - {fileID: 0}
-  - {fileID: 0}
   smoothTime: 0.2
   zoomFactor: 0.5
   angle: 30
-  minDistance: 10
+  minDistance: 20

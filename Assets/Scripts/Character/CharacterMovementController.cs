@@ -12,6 +12,7 @@ public class CharacterMovementController : MonoBehaviour
     private CharacterModel _playerModel;
     private CharacterCombatController _characterCombatController;
     private CharacterInputController _characterInputController;
+    private Animator _animator;
 
     private bool isDodging = false;
     private float dodgeStart = 0;
@@ -38,6 +39,7 @@ public class CharacterMovementController : MonoBehaviour
     void Awake()
     {
         _playerModel = GetComponent<CharacterModel>();
+        _animator = GetComponentInChildren<Animator>();
     }
 
     // Use this for initialization
@@ -83,7 +85,8 @@ public class CharacterMovementController : MonoBehaviour
 
         Vector3 movementDelta = (cameraRight * xDelta) + (cameraForward * zDelta);
 
-        if (_characterCombatController.isBlocking)
+        if (_characterCombatController.isBlocking || _characterCombatController.isChargingSpirit ||
+            _characterCombatController.isSpecialAttackActive)
         {
             movementDelta = Vector3.zero;
         }
@@ -93,7 +96,7 @@ public class CharacterMovementController : MonoBehaviour
         Vector3 newPos = Vector3.Lerp(transform.position, finalPos, Time.fixedDeltaTime);
         Quaternion newRotation = transform.rotation;
 
-        if (characterInput.facingDir.magnitude > 0)
+        if (!isDodging && characterInput.facingDir.magnitude > 0)
         {
             newRotation = Quaternion.LookRotation(characterInput.facingDir, transform.up);
         }
@@ -103,6 +106,21 @@ public class CharacterMovementController : MonoBehaviour
         {
             moveDir = finalPos - transform.position;
             moveDir.y = transform.position.y;
+
+            _animator.SetBool("isWalking", true);
+
+            if (Vector3.Angle(transform.forward, movementDelta) > 90f)
+            {
+                _animator.SetBool("isWalkingBack", true);
+            }
+            else
+            {
+                _animator.SetBool("isWalkingBack", false);
+            }
+        }
+        else
+        {
+            _animator.SetBool("isWalking", false);
         }
 
         newRotation = Quaternion.Lerp(transform.rotation, newRotation, rotationSpeed * Time.fixedDeltaTime);
@@ -119,6 +137,8 @@ public class CharacterMovementController : MonoBehaviour
             dodgingDir = moveDir.normalized;
             dodgingDir.y = 0;
             dodgeStart = Time.time;
+
+            _animator.SetTrigger("Roll");
         }
     }
 
@@ -129,7 +149,8 @@ public class CharacterMovementController : MonoBehaviour
         Vector3 newPos = Vector3.Lerp(transform.position, finalPos, Time.fixedDeltaTime);
 
         Quaternion finalRotation = Quaternion.LookRotation(dodgingDir, transform.up);
-        Quaternion newRotation = Quaternion.Lerp(transform.rotation, finalRotation, Time.fixedDeltaTime);
+//        Quaternion newRotation = Quaternion.Lerp(transform.rotation, finalRotation, Time.fixedDeltaTime);
+        Quaternion newRotation = finalRotation;
 
         transform.position = newPos;
         transform.rotation = newRotation;
