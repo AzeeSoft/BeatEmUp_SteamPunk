@@ -16,7 +16,6 @@ public class GameManager : MonoBehaviour
 
 	bool gameOver;
 
-	public RectTransform endGame;
 	public RectTransform credits;
 	
 	private void Awake()
@@ -41,6 +40,7 @@ public class GameManager : MonoBehaviour
 		{
 			youLoseText.text = "Sad, You Lose";
 			StopCoroutine("Timer");
+			timerText.gameObject.SetActive(false);
 			yield return new WaitForSeconds (2f);
 			SceneManager.LoadScene("Start Screen");
 		}
@@ -62,6 +62,7 @@ public class GameManager : MonoBehaviour
 		{
 			youWinText.text = "You Win!";
 			StopCoroutine("Timer");
+			timerText.gameObject.SetActive(false);
 			yield return new WaitForSeconds (2f);			
 			credits.gameObject.SetActive(true);
 		}
