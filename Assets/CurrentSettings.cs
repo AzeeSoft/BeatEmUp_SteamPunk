@@ -17,11 +17,9 @@ public class CurrentSettings : MonoBehaviour {
 
     public static CurrentSettings instance = null;
 
-
-
     void Awake()
     {
-        if(instance == null)
+        if(instance != null)
         {
             Destroy(this.gameObject);
             return;

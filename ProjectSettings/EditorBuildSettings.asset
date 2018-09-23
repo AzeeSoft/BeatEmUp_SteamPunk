@@ -8,9 +8,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/StartScreen.unity
     guid: 2585be132ec363c409db0e37978e485b
-  - enabled: 0
-    path: Assets/Scenes/TestScenes/Rachel/createUI.unity
-    guid: 1e36be69957eccc42a1e83043b1528b1
+  - enabled: 1
+    path: Assets/Scenes/GameSetup.unity
+    guid: a3c5c55d2e966cb43ae70c4099a1b5d8
   - enabled: 1
     path: Assets/Scenes/ArenaScene.unity
     guid: fa2f5fa016d79c74789c9abf05e29f02

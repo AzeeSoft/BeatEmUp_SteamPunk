@@ -73,4 +73,5 @@ MonoBehaviour:
     characterInputController: {fileID: 114839368472544886, guid: 34fb031d2ce2a4e45ad4e46a500fb928,
       type: 2}
     characterHudInfo: {fileID: 0}
+  readyText: {fileID: 0}
   characterModels: []
