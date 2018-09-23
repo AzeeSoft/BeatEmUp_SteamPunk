@@ -27,5 +27,13 @@ public class HealthController : MonoBehaviour {
 		health = Mathf.Clamp (health, 0, maxHealth);
 		onHealthChanged (oldHealth, health);
 	}
+
+	public void PlayerDeath ()
+	{
+		if(health == 0)
+		{
+			GameManager.instance.StartCoroutine("You Lose");
+		}
+	}
 	
 }
