@@ -4,9 +4,11 @@ using UnityEngine;
 
 public abstract class CharacterCombatController : MonoBehaviour
 {
-    public float maxSpirit;
+    public float maxSpirit = 100;
     public float spirit;
-    public float totalLightAttackCooldownTime = 1;
+    public float totalLightAttackCooldownTime = 0.5f;
+
+    public float specialAttackAnimDuration = 1f;
 
     public bool isBlocking = false;
     public bool isChargingSpirit = false;
@@ -14,6 +16,7 @@ public abstract class CharacterCombatController : MonoBehaviour
 
     private CharacterMovementController _characterMovementController;
     private CharacterInputController _characterInputController;
+    private Animator _animator;
 
     private float lightAttackCooldownTimer = 0;
 
@@ -37,6 +40,7 @@ public abstract class CharacterCombatController : MonoBehaviour
 
     void Awake()
     {
+        _animator = GetComponentInChildren<Animator>();
         ResetController();
     }
 
@@ -79,6 +83,7 @@ public abstract class CharacterCombatController : MonoBehaviour
                 if (Block())
                 {
                     isBlocking = true;
+                    _animator.SetBool("isBlocking", true);
                 }
             }
         }
@@ -88,6 +93,7 @@ public abstract class CharacterCombatController : MonoBehaviour
             {
                 Unblock();
                 isBlocking = false;
+                _animator.SetBool("isBlocking", false);
             }
         }
 
@@ -98,13 +104,15 @@ public abstract class CharacterCombatController : MonoBehaviour
                 SpecialAttack();
                 isSpecialAttackActive = true;
 
-                // TODO: Setup a way to turn isSpecialAttackActive false
+                _animator.SetTrigger("Special");
+                StartCoroutine(OnSpecialAttackUnleashed());
             }
 
             if (characterInput.specialAttackCharge)
             {
                 StartingSpiritCharge();
                 isChargingSpirit = true;
+                _animator.SetBool("isCharging", true);
             }
             else
             {
@@ -112,6 +120,7 @@ public abstract class CharacterCombatController : MonoBehaviour
                 {
                     CancellingSpiritCharge();
                     isChargingSpirit = false;
+                    _animator.SetBool("isCharging", false);
                 }
             }
 
@@ -121,6 +130,7 @@ public abstract class CharacterCombatController : MonoBehaviour
                 {
                     if (LightAttack())
                     {
+                        _animator.SetTrigger("Light");
                         lightAttackCooldownTimer = totalLightAttackCooldownTime;
                     }
                 }
@@ -132,8 +142,15 @@ public abstract class CharacterCombatController : MonoBehaviour
             {
                 CancellingSpiritCharge();
                 isChargingSpirit = false;
+                _animator.SetBool("isCharging", false);
             }
         }
+    }
+
+    IEnumerator OnSpecialAttackUnleashed()
+    {
+        yield return new WaitForSeconds(specialAttackAnimDuration);
+        isSpecialAttackActive = false;
     }
 
     public abstract bool Block();
