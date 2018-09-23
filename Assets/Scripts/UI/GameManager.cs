@@ -101,7 +101,6 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
         timerText.gameObject.SetActive(false);
-        Time.timeScale = 0;
         YouWinGameObject.SetActive(true);
 
         yield return new WaitForSeconds(5f);
