@@ -94,8 +94,18 @@ public class GameManager : MonoBehaviour
         gameOver = true;
         youWinText.text = winner.CharacterInfo.name + " Wins!!";
         StopCoroutine("Timer");
+        StartCoroutine("GameOverDelay");
+    }
+
+    public IEnumerator GameOverDelay()
+    {
+        yield return new WaitForSeconds(2f);
         timerText.gameObject.SetActive(false);
         Time.timeScale = 0;
         YouWinGameObject.SetActive(true);
+
+        yield return new WaitForSeconds(5f);
+        SceneManager.LoadScene("StartScreen");
+    
     }
 }
