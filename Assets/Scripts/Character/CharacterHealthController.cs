@@ -12,6 +12,8 @@ public class CharacterHealthController : MonoBehaviour {
 	public float maxHealth = 100f;
 	public float health;
 
+    public float spiritReleasePerDamage = 1f;
+
     private CharacterCombatController _characterCombatController;
     private Animator _animator;
 
@@ -32,7 +34,7 @@ public class CharacterHealthController : MonoBehaviour {
 
     }
 	
-	public void TakeDamage (float damage)
+	public void TakeDamage (float damage, CharacterModel attackedByCharacterModel = null)
 	{
 	    if (isDead)
 	    {
@@ -49,13 +51,20 @@ public class CharacterHealthController : MonoBehaviour {
 		health -= damage;
 		health = Mathf.Clamp (health, 0, maxHealth);
 
-	    if (health <= 0)
+	    if (attackedByCharacterModel != null)
+	    {
+	        CharacterCombatController otherCharacterCombatController =
+	            attackedByCharacterModel.GetComponent<CharacterCombatController>();
+            otherCharacterCombatController.AddSpirit(damage * spiritReleasePerDamage);
+	    }
+
+	    onHealthChanged(oldHealth, health);
+
+        if (health <= 0)
 	    {
 	        OnPlayerDeath();
 	    }
-
-		onHealthChanged (oldHealth, health);
-
+        
         _animator.SetTrigger("Hit");
 	}
 

@@ -168,6 +168,7 @@ MonoBehaviour:
   speed: 30
   maxLifetime: 0.5
   damage: 10
+  volume: 0.5
   owner: {fileID: 0}
 --- !u!135 &135096799568088982
 SphereCollider:

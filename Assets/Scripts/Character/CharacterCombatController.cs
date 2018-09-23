@@ -7,7 +7,9 @@ public abstract class CharacterCombatController : MonoBehaviour
     public float blockDamageReducer = 0.5f;
     public float maxSpirit = 100;
     public float spirit;
+    public float minSpiritConsumption = 30;
     public float spiritChargeRate = 30;
+    public float spiritChargeBlockDuration = 2f;
     public float totalLightAttackCooldownTime = 0.5f;
 
     public float specialAttackAnimDuration = 1f;
@@ -16,13 +18,16 @@ public abstract class CharacterCombatController : MonoBehaviour
     public bool isChargingSpirit = false;
     public bool isSpecialAttackActive = false;
 
+    public AudioSource SpiritChargingAudioSource;
 
     protected CharacterModel _characterModel;
+    protected CharacterHealthController _characterHealthController;
     protected CharacterMovementController _characterMovementController;
     protected CharacterInputController _characterInputController;
     protected Animator _animator;
 
     private float chargedSpirit = 0;
+    private bool canChargeSpirit = false;
 
     private float lightAttackCooldownTimer = 0;
 
@@ -31,6 +36,21 @@ public abstract class CharacterCombatController : MonoBehaviour
         if (!_characterModel)
         {
             _characterModel = GetComponentInChildren<CharacterModel>();
+        }
+
+        if (!_characterHealthController)
+        {
+            _characterHealthController = GetComponentInChildren<CharacterHealthController>();
+            _characterHealthController.onHealthChanged += (float oldHealth, float health) =>
+            {
+                if (health < oldHealth)
+                {
+                    if (isChargingSpirit)
+                    {
+                        CancellingSpiritCharge();
+                    }
+                }
+            };
         }
 
         if (!_characterInputController)
@@ -46,7 +66,7 @@ public abstract class CharacterCombatController : MonoBehaviour
 
     void ResetController()
     {
-        spirit = maxSpirit;
+
     }
 
     void Awake()
@@ -112,21 +132,30 @@ public abstract class CharacterCombatController : MonoBehaviour
         {
             if (characterInput.specialAttack)
             {
-                SpecialAttack(chargedSpirit);
-                isSpecialAttackActive = true;
-                chargedSpirit = 0;
+                if (chargedSpirit > 0)
+                {
+                    SpecialAttack(chargedSpirit);
+                    isSpecialAttackActive = true;
 
-                _animator.SetTrigger("Special");
-                StartCoroutine(OnSpecialAttackUnleashed());
+                    _animator.SetTrigger("Special");
+                    StartCoroutine(OnSpecialAttackUnleashed());
+
+                    CancelSpiritCharge();
+                }
             }
 
             if (characterInput.specialAttackCharge)
             {
-                if (!isChargingSpirit)
+                if (!isChargingSpirit && spirit >= minSpiritConsumption)
                 {
                     StartingSpiritCharge();
                     isChargingSpirit = true;
-                    chargedSpirit = 0;
+
+                    spirit -= minSpiritConsumption;
+                    chargedSpirit = minSpiritConsumption;
+
+                    SpiritChargingAudioSource.Play();
+
                     _animator.SetBool("isCharging", true);
                 }
             }
@@ -134,8 +163,7 @@ public abstract class CharacterCombatController : MonoBehaviour
             {
                 if (isChargingSpirit)
                 {
-                    isChargingSpirit = false;
-                    _animator.SetBool("isCharging", false);
+                    CancelSpiritCharge();
                 }
             }
 
@@ -155,8 +183,7 @@ public abstract class CharacterCombatController : MonoBehaviour
         {
             if (isChargingSpirit)
             {
-                isChargingSpirit = false;
-                _animator.SetBool("isCharging", false);
+                CancelSpiritCharge();
             }
         }
 
@@ -196,11 +223,33 @@ public abstract class CharacterCombatController : MonoBehaviour
         {
             spirit = maxSpirit;
         }
-    } 
+    }
+
+    public void CancelSpiritCharge()
+    {
+        if (isChargingSpirit)
+        {
+            chargedSpirit = 0;
+            isChargingSpirit = false;
+            CancellingSpiritCharge();
+            SpiritChargingAudioSource.Stop();
+            _animator.SetBool("isCharging", false);
+
+            StartCoroutine(DisableSpiritChargeTemporarily());
+        }
+    }
+
+    IEnumerator DisableSpiritChargeTemporarily()
+    {
+        canChargeSpirit = false;
+        yield return new WaitForSeconds(spiritChargeBlockDuration);
+        canChargeSpirit = true;
+    }
 
     public abstract bool Block();
     public abstract void Unblock();
     public abstract bool LightAttack();
     public abstract bool StartingSpiritCharge();
+    public abstract void CancellingSpiritCharge();
     public abstract void SpecialAttack(float chargedSpirit);
 }

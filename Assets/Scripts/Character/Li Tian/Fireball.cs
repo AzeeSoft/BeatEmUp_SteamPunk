@@ -9,6 +9,8 @@ public class Fireball : MonoBehaviour
 
     public float damage = 5f;
 
+    public float volume = 1f;
+
     [HideInInspector]
     public CharacterModel owner;
 
@@ -26,6 +28,7 @@ public class Fireball : MonoBehaviour
     void Start()
     {
         startTime = Time.time;
+        AudioManager.instance.PlayEffect(AudioManager.AudioData.MonkLightATK, null, volume);
     }
 
     // Update is called once per frame
@@ -65,7 +68,7 @@ public class Fireball : MonoBehaviour
             otherCollider.gameObject.GetComponent<CharacterHealthController>();
         if (characterHealthController != null)
         {
-            characterHealthController.TakeDamage(damage);
+            characterHealthController.TakeDamage(damage, owner);
         }
 
         Destroy(gameObject);

@@ -29,8 +29,14 @@ public class LiTianCombatController : CharacterCombatController
         return true;
     }
 
+    public override void CancellingSpiritCharge()
+    {
+
+    }
+
     public override void SpecialAttack(float chargedSpirit)
     {
+        AudioManager.instance.PlayEffect(AudioManager.AudioData.Explosion);
         Debug.Log("Charged Spirit: " + chargedSpirit);
     }
 }
