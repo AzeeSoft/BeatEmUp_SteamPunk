@@ -8,5 +8,5 @@ public class CharacterInfo : ScriptableObject
 {
     public string name;
     public Color primaryColor;
-    public Image image;
+    public Sprite image;
 }

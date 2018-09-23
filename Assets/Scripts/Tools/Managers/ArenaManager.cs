@@ -11,6 +11,7 @@ public class ArenaManager : MonoBehaviour {
         public Transform transform;
         public GameObject characterPrefab;
         public CharacterInputController characterInputController;
+        public CharacterHUDInfo characterHudInfo;
     }
 
     [HideInInspector]
@@ -58,6 +59,8 @@ public class ArenaManager : MonoBehaviour {
 
             CharacterModel characterModel = characterGameObject.GetComponent<CharacterModel>();
             characterModels.Add(characterModel);
+
+            characterSpawnData.characterHudInfo.AttachCharacter(characterModel);
         }
     }
 }

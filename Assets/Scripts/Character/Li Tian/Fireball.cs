@@ -11,8 +11,13 @@ public class Fireball : MonoBehaviour
 
     public float volume = 1f;
 
+    public bool DestroyOnAnyContact = true;
+
     [HideInInspector]
     public CharacterModel owner;
+
+    [HideInInspector]
+    public bool travelForward = false;
 
     private float startTime;
     private ParticleSystem particleSystem;
@@ -28,20 +33,32 @@ public class Fireball : MonoBehaviour
     void Start()
     {
         startTime = Time.time;
-        AudioManager.instance.PlayEffect(AudioManager.AudioData.MonkLightATK, transform, volume);
+
+        if (volume > 0)
+        {
+            AudioManager.instance.PlayEffect(AudioManager.AudioData.MonkLightATK, transform, volume);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        MoveFireball();
+        if (travelForward)
+        {
+            MoveFireball();
+        }
+
+        BurnOut();
     }
 
     void MoveFireball()
     {
         Vector3 finalPos = transform.position + (transform.forward * speed);
         transform.position = Vector3.Lerp(transform.position, finalPos, Time.deltaTime);
+    }
 
+    void BurnOut()
+    {
         if (Time.time - startTime > maxLifetime)
         {
             if (particleSystem.transform.localScale.magnitude > 0.05f)
@@ -57,20 +74,39 @@ public class Fireball : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider otherCollider)
+    void OnContactWithObject(GameObject otherGameObject)
     {
-        if (owner == null || otherCollider.gameObject == owner.gameObject)
+        if (owner == null || otherGameObject == owner.gameObject)
         {
             return;
         }
 
         CharacterHealthController characterHealthController =
-            otherCollider.gameObject.GetComponent<CharacterHealthController>();
+            otherGameObject.GetComponent<CharacterHealthController>();
         if (characterHealthController != null)
         {
             characterHealthController.TakeDamage(damage, owner);
+            Destroy(gameObject);
         }
+        else if (DestroyOnAnyContact)
+        {
+            Destroy(gameObject);
+        }
+    }
 
-        Destroy(gameObject);
+    void OnTriggerEnter(Collider otherCollider)
+    {
+        if (!otherCollider.isTrigger)
+        {
+            OnContactWithObject(otherCollider.gameObject);
+        }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (!collision.collider.isTrigger)
+        {
+            OnContactWithObject(collision.gameObject);
+        }
     }
 }

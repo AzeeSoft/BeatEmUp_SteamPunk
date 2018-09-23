@@ -70,7 +70,7 @@ public class MainMenuManager : MonoBehaviour
 
 	public void Continue ()
 	{
-		SceneManager.LoadScene("createUI");
+		SceneManager.LoadScene("ArenaScene");
 	}
 }
 

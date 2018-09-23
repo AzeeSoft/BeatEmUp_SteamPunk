@@ -58,8 +58,5 @@ MonoBehaviour:
       type: 2}
     characterInputController: {fileID: 114293783351049922, guid: 074f0b14ff0cf5247b6153b745808811,
       type: 2}
-  - transform: {fileID: 0}
-    characterPrefab: {fileID: 1938948269640022, guid: 6d88ae9b6b3a37f4cb1deedbc0a755a9,
-      type: 2}
-    characterInputController: {fileID: 0}
+    characterHudInfo: {fileID: 0}
   characterModels: []

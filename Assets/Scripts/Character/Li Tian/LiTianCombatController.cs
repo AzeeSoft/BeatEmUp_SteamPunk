@@ -8,7 +8,7 @@ public class LiTianCombatController : CharacterCombatController
     public Transform fireballSpawnTransform;
 
     public ParticleSystem spiritChargingParticleSystem;
-    public ParticleSystem explosionParticleSystem;
+    public GameObject explosionPrefab;
 
     public override bool Block()
     {
@@ -23,7 +23,11 @@ public class LiTianCombatController : CharacterCombatController
     {
         GameObject fireballGameObject =
             Instantiate(fireballPrefab, fireballSpawnTransform.position, fireballSpawnTransform.rotation);
-        fireballGameObject.GetComponent<Fireball>().owner = _characterModel;
+
+        Fireball fireball = fireballGameObject.GetComponent<Fireball>();
+        fireball.owner = _characterModel;
+        fireball.travelForward = true;
+
         return true;
     }
 
@@ -40,8 +44,8 @@ public class LiTianCombatController : CharacterCombatController
 
     public override void SpecialAttack(float chargedSpirit)
     {
-        AudioManager.instance.PlayEffect(AudioManager.AudioData.Explosion);
         Debug.Log("Charged Spirit: " + chargedSpirit);
-        explosionParticleSystem.Play();
+        GameObject explosionGameObject = Instantiate(explosionPrefab, transform.position, transform.rotation);
+        explosionGameObject.GetComponent<Explosion>().Explode(_characterModel, chargedSpirit);
     }
 }

@@ -64,7 +64,7 @@ class PlayerInputController : CharacterInputController
 
             RaycastHit raycastHit;
             if (Physics.Raycast(ray, out raycastHit, float.MaxValue,
-                LayerMask.NameToLayer("MousePositionDetector"), QueryTriggerInteraction.Collide))
+                LayerMask.NameToLayer("MousePositionDetector")))
             {
                 Vector3 targetPos = raycastHit.point;
                 targetPos.y = GetComponentInParent<CharacterMovementController>().transform.position.y;

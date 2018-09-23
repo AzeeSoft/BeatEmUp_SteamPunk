@@ -16,6 +16,9 @@ public class CharacterHealthController : MonoBehaviour {
 
     public float hitVolume = 0.5f;
 
+    public Collider mainCollider;
+    public Collider deadCollider;
+
     private CharacterCombatController _characterCombatController;
     private Animator _animator;
 
@@ -75,6 +78,10 @@ public class CharacterHealthController : MonoBehaviour {
 	{
 	    isDead = true;
         _animator.SetTrigger("Die");
+
+	    mainCollider.enabled = false;
+	    deadCollider.enabled = true;
+
 //	    GameManager.instance.StartCoroutine("You Lose");
-    }
+	}
 }
