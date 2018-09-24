@@ -80,8 +80,7 @@ class PlayerInputController : CharacterInputController
             Ray ray = arenaManager.arenaCamera.GetComponent<Camera>().ScreenPointToRay(pos);
 
             RaycastHit raycastHit;
-            if (Physics.Raycast(ray, out raycastHit, float.MaxValue,
-                LayerMask.NameToLayer("MousePositionDetector")))
+            if (Physics.Raycast(ray, out raycastHit, float.MaxValue, LayerMask.GetMask("MousePositionDetector")))
             {
                 Vector3 targetPos = raycastHit.point;
                 targetPos.y = GetComponentInParent<CharacterMovementController>().transform.position.y;
@@ -111,7 +110,7 @@ class PlayerInputController : CharacterInputController
                 {
                     characterInput.specialAttack = true;
                 }
-                
+
                 break;
             case ControllerType.KeyboardAndMouse:
                 characterInput.lightAttack = Input.GetButton("Fire1" + suffix);

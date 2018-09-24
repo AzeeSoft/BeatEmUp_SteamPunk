@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class PauseManger : MonoBehaviour 
 {
 	public RectTransform pauseMenuRoot;
 	public Text timerText;
 	public Image controllerImage;
+
+    public GameObject controllerPanel;
 
 	void Awake ()
 	{
@@ -31,13 +34,16 @@ public class PauseManger : MonoBehaviour
 
 	public void QuitGame ()
 	{
-		Application.Quit();
+//		Application.Quit();
+        SceneManager.LoadScene("StartScreen");
 	}
 
 	void Update ()
 	{
 		if (Input.GetButtonDown("Cancel"))
 		{
+            controllerPanel.SetActive(false);
+
 			if (pauseMenuRoot.gameObject.activeSelf) ResumeGame();
 			else PauseGame();
 		}

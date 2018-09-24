@@ -62,7 +62,7 @@ MonoBehaviour:
   arenaCamera: {fileID: 0}
   characterSpawnDataList:
   - transform: {fileID: 0}
-    characterPrefab: {fileID: 1524058591213098, guid: f63df6e54d3a68043a8adb7a336aab56,
+    characterPrefab: {fileID: 1938948269640022, guid: 4c630faa2bf8633409872728bf3c042b,
       type: 2}
     characterInputController: {fileID: 114293783351049922, guid: 074f0b14ff0cf5247b6153b745808811,
       type: 2}
@@ -73,4 +73,5 @@ MonoBehaviour:
     characterInputController: {fileID: 114839368472544886, guid: 34fb031d2ce2a4e45ad4e46a500fb928,
       type: 2}
     characterHudInfo: {fileID: 0}
+  readyText: {fileID: 0}
   characterModels: []

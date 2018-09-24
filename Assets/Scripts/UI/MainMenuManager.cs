@@ -51,7 +51,12 @@ public class MainMenuManager : MonoBehaviour
 		}
 	}
 
-	public void ShowStartScreen ()
+    public void QuitGame()
+    {
+   		Application.Quit();
+    }
+
+    public void ShowStartScreen ()
 	{
 		currentScreen = Screen.Start;
 		EventSystem.current.SetSelectedGameObject(null);

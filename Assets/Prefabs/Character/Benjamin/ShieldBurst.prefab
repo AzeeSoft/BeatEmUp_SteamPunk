@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4183952366929642}
   - component: {fileID: 136921345300838724}
   - component: {fileID: 114051536028020436}
+  - component: {fileID: 54846548102116104}
   m_Layer: 0
   m_Name: ShieldBurst
   m_TagString: Untagged
@@ -203,6 +204,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1769189946733768}
   m_Mesh: {fileID: 4300000, guid: ffdce7881c0d2d34db5bb81c3f22a306, type: 3}
+--- !u!54 &54846548102116104
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1169664055502300}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!114 &114051536028020436
 MonoBehaviour:
   m_ObjectHideFlags: 1

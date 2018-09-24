@@ -18,6 +18,8 @@ public class GameSetup : MonoBehaviour {
     private void Start()
     {
         currentState = State.Main;
+        CurrentSettings.instance.player1 = CurrentSettings.characters.LiTian;
+        CurrentSettings.instance.player2 = CurrentSettings.characters.Benjamin;
     }
 
     private void Update()

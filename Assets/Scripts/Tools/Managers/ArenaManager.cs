@@ -2,11 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ArenaManager : MonoBehaviour {
 
     [Serializable]
-    public struct CharacterSpawnData
+    public class CharacterSpawnData
     {
         public Transform transform;
         public GameObject characterPrefab;
@@ -29,6 +30,8 @@ public class ArenaManager : MonoBehaviour {
 
     public List<CharacterSpawnData> characterSpawnDataList;
 
+    public Text readyText;
+
     private static ArenaManager instance;
     public static ArenaManager Instance
     {
@@ -42,14 +45,61 @@ public class ArenaManager : MonoBehaviour {
     {
         instance = this;
 
-        Time.timeScale = 1;
-
         arenaCamera = FindObjectOfType<ArenaCamera>();
     }
 
 	// Use this for initialization
-	void Start () {
-	    SpawnCharacters();
+	void Start ()
+	{
+	    Time.timeScale = 1;
+        StartCoroutine(StartAfterPause());
+	}
+
+    IEnumerator StartAfterPause()
+    {
+        readyText.text = "Ready";
+        yield return new WaitForSeconds(2f);
+        readyText.text = "Set";
+        yield return new WaitForSeconds(1f);
+        readyText.text = "Go!";
+        yield return new WaitForSeconds(0.5f);
+        readyText.gameObject.SetActive(false);
+
+        if (CurrentSettings.instance)
+        {
+            if (CurrentSettings.instance.multiplayer)
+            {
+                characterSpawnDataList[0].characterInputController = playerKM;
+                characterSpawnDataList[1].characterInputController = playerJ;
+            }
+            else
+            {
+                characterSpawnDataList[0].characterInputController = playerKM;
+                characterSpawnDataList[1].characterInputController = ai;
+            }
+
+            if (CurrentSettings.instance.player1 == CurrentSettings.characters.Benjamin)
+            {
+                characterSpawnDataList[0].characterPrefab = benjaminPrefab;
+            }
+
+            if (CurrentSettings.instance.player1 == CurrentSettings.characters.LiTian)
+            {
+                characterSpawnDataList[0].characterPrefab = monkPrefab;
+            }
+
+            if (CurrentSettings.instance.player2 == CurrentSettings.characters.Benjamin)
+            {
+                characterSpawnDataList[1].characterPrefab = benjaminPrefab;
+            }
+
+            if (CurrentSettings.instance.player2 == CurrentSettings.characters.LiTian)
+            {
+                characterSpawnDataList[1].characterPrefab = monkPrefab;
+            }
+        }
+
+        SpawnCharacters();
 
         GameManager.instance.ResetTimer();
         AudioManager.instance.PlayMusic(AudioManager.AudioData.GameplayTheme, true);
