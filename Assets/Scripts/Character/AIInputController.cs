@@ -81,7 +81,7 @@ public class AIInputController : CharacterInputController
         characterInput.horizontal = 0;
         characterInput.vertical = 0;
 
-        Debug.Log("Mag: " + toOpponent.magnitude);
+//        Debug.Log("Mag: " + toOpponent.magnitude);
 
         if (toOpponent.magnitude < (preferredRange + preferredRangeThreshold) &&
             toOpponent.magnitude > (preferredRange - preferredRangeThreshold))
@@ -91,15 +91,14 @@ public class AIInputController : CharacterInputController
         }
         else if (toOpponent.magnitude > preferredRange)
         {
-            Debug.Log("Moving Closer");
+//            Debug.Log("Moving Closer");
             cameraMoveDir.Normalize();
             characterInput.horizontal = cameraMoveDir.x;
             characterInput.vertical = cameraMoveDir.z;
         }
         else if (toOpponent.magnitude < preferredRange)
         {
-            Debug.Log("Moving Farther");
-
+//            Debug.Log("Moving Farther");
             cameraMoveDir.Normalize();
             characterInput.horizontal = cameraMoveDir.x;
             characterInput.vertical = cameraMoveDir.z;

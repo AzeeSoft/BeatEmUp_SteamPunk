@@ -47,7 +47,7 @@ public abstract class CharacterCombatController : MonoBehaviour
                 {
                     if (isChargingSpirit)
                     {
-                        CancellingSpiritCharge();
+                        CancelSpiritCharge();
                     }
                 }
             };

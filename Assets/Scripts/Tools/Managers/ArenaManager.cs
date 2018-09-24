@@ -49,9 +49,10 @@ public class ArenaManager : MonoBehaviour {
     }
 
 	// Use this for initialization
-	void Start () {
-
-	    StartCoroutine(StartAfterPause());
+	void Start ()
+	{
+	    Time.timeScale = 1;
+        StartCoroutine(StartAfterPause());
 	}
 
     IEnumerator StartAfterPause()
@@ -64,34 +65,38 @@ public class ArenaManager : MonoBehaviour {
         yield return new WaitForSeconds(0.5f);
         readyText.gameObject.SetActive(false);
 
-        Time.timeScale = 1;
+        if (CurrentSettings.instance)
+        {
+            if (CurrentSettings.instance.multiplayer)
+            {
+                characterSpawnDataList[0].characterInputController = playerKM;
+                characterSpawnDataList[1].characterInputController = playerJ;
+            }
+            else
+            {
+                characterSpawnDataList[0].characterInputController = playerKM;
+                characterSpawnDataList[1].characterInputController = ai;
+            }
 
-        if (CurrentSettings.instance.multiplayer)
-        {
-            characterSpawnDataList[0].characterInputController = playerKM;
-            characterSpawnDataList[1].characterInputController = playerJ;
-        }
-        else
-        {
-            characterSpawnDataList[0].characterInputController = playerKM;
-            characterSpawnDataList[1].characterInputController = ai;
-        }
+            if (CurrentSettings.instance.player1 == CurrentSettings.characters.Benjamin)
+            {
+                characterSpawnDataList[0].characterPrefab = benjaminPrefab;
+            }
 
-        if (CurrentSettings.instance.player1 == CurrentSettings.characters.Benjamin)
-        {
-            characterSpawnDataList[0].characterPrefab = benjaminPrefab;
-        }
-        if (CurrentSettings.instance.player1 == CurrentSettings.characters.LiTian)
-        {
-            characterSpawnDataList[0].characterPrefab = monkPrefab;
-        }
-        if (CurrentSettings.instance.player2 == CurrentSettings.characters.Benjamin)
-        {
-            characterSpawnDataList[1].characterPrefab = benjaminPrefab;
-        }
-        if (CurrentSettings.instance.player2 == CurrentSettings.characters.LiTian)
-        {
-            characterSpawnDataList[1].characterPrefab = monkPrefab;
+            if (CurrentSettings.instance.player1 == CurrentSettings.characters.LiTian)
+            {
+                characterSpawnDataList[0].characterPrefab = monkPrefab;
+            }
+
+            if (CurrentSettings.instance.player2 == CurrentSettings.characters.Benjamin)
+            {
+                characterSpawnDataList[1].characterPrefab = benjaminPrefab;
+            }
+
+            if (CurrentSettings.instance.player2 == CurrentSettings.characters.LiTian)
+            {
+                characterSpawnDataList[1].characterPrefab = monkPrefab;
+            }
         }
 
         SpawnCharacters();
